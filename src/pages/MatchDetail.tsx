@@ -214,53 +214,45 @@ export default function MatchDetail() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            {/* 胜平负概率横向展示 */}
+            <div className="flex items-center justify-center gap-4 mb-6">
               {/* 主胜 */}
-              <div className={`bg-[#1a472a]/40 rounded-lg p-4 text-center border-2 ${
+              <div className={`flex-1 bg-[#1a472a]/40 rounded-lg p-3 text-center border-2 ${
                 stats.homeWins >= stats.draws && stats.homeWins >= stats.awayWins
                   ? 'border-green-500/60 bg-green-500/10'
                   : 'border-transparent'
               }`}>
-                <div className="text-sm text-gray-400 mb-1">主胜</div>
-                <div className="text-3xl font-bold text-white mb-1">
+                <div className="text-xs text-gray-400 mb-1">主胜</div>
+                <div className="text-2xl font-bold text-white">
                   {((stats.homeWins / stats.total) * 100).toFixed(0)}%
                 </div>
-                <div className="text-xs text-gray-500">{stats.homeWins} 个来源预测</div>
-                {stats.homeWins >= stats.draws && stats.homeWins >= stats.awayWins && (
-                  <div className="mt-2 text-xs text-green-400 font-medium">👑 最热门结果</div>
-                )}
+                <div className="text-[10px] text-gray-500">{stats.homeWins}票</div>
               </div>
 
               {/* 平局 */}
-              <div className={`bg-[#1a472a]/40 rounded-lg p-4 text-center border-2 ${
+              <div className={`flex-1 bg-[#1a472a]/40 rounded-lg p-3 text-center border-2 ${
                 stats.draws >= stats.homeWins && stats.draws >= stats.awayWins
                   ? 'border-yellow-500/60 bg-yellow-500/10'
                   : 'border-transparent'
               }`}>
-                <div className="text-sm text-gray-400 mb-1">平局</div>
-                <div className="text-3xl font-bold text-white mb-1">
+                <div className="text-xs text-gray-400 mb-1">平局</div>
+                <div className="text-2xl font-bold text-white">
                   {((stats.draws / stats.total) * 100).toFixed(0)}%
                 </div>
-                <div className="text-xs text-gray-500">{stats.draws} 个来源预测</div>
-                {stats.draws >= stats.homeWins && stats.draws >= stats.awayWins && (
-                  <div className="mt-2 text-xs text-yellow-400 font-medium">👑 最热门结果</div>
-                )}
+                <div className="text-[10px] text-gray-500">{stats.draws}票</div>
               </div>
 
               {/* 客胜 */}
-              <div className={`bg-[#1a472a]/40 rounded-lg p-4 text-center border-2 ${
+              <div className={`flex-1 bg-[#1a472a]/40 rounded-lg p-3 text-center border-2 ${
                 stats.awayWins >= stats.homeWins && stats.awayWins >= stats.draws
                   ? 'border-red-500/60 bg-red-500/10'
                   : 'border-transparent'
               }`}>
-                <div className="text-sm text-gray-400 mb-1">客胜</div>
-                <div className="text-3xl font-bold text-white mb-1">
+                <div className="text-xs text-gray-400 mb-1">客胜</div>
+                <div className="text-2xl font-bold text-white">
                   {((stats.awayWins / stats.total) * 100).toFixed(0)}%
                 </div>
-                <div className="text-xs text-gray-500">{stats.awayWins} 个来源预测</div>
-                {stats.awayWins >= stats.homeWins && stats.awayWins >= stats.draws && (
-                  <div className="mt-2 text-xs text-red-400 font-medium">👑 最热门结果</div>
-                )}
+                <div className="text-[10px] text-gray-500">{stats.awayWins}票</div>
               </div>
             </div>
 
@@ -299,29 +291,6 @@ export default function MatchDetail() {
                 </div>
               </div>
             )}
-
-            {/* 平均预测比分 */}
-            <div className="p-4 bg-[#1a472a]/30 rounded-lg border border-[#d4af37]/20">
-              <div className="text-sm text-gray-400 mb-3 flex items-center gap-2">
-                <Target className="w-4 h-4" />
-                综合预测比分（加权平均）
-              </div>
-              <div className="flex items-center justify-center gap-6">
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-white">
-                    {Math.round(stats.avgHome)}
-                  </div>
-                  <div className="text-xs text-gray-400 mt-1">主队场均进球</div>
-                </div>
-                <div className="text-2xl text-[#d4af37] font-bold">VS</div>
-                <div className="text-center">
-                  <div className="text-4xl font-bold text-white">
-                    {Math.round(stats.avgAway)}
-                  </div>
-                  <div className="text-xs text-gray-400 mt-1">客队场均进球</div>
-                </div>
-              </div>
-            </div>
           </div>
         )}
 

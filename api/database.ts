@@ -3806,11 +3806,11 @@ export const db = {
         else weight = 0.85;
         const weightedScore = points * weight;
 
-        // 各项比率（避免除零）
-        const shotOnTargetRate = t.stats.totalShots > 0 ? t.stats.shotsOnTarget / t.stats.totalShots : 0;
-        const conversionRate = t.stats.shotsOnTarget > 0 ? t.stats.goals / t.stats.shotsOnTarget : 0;
-        const saveRate = t.stats.shotsFaced > 0 ? t.stats.saves / t.stats.shotsFaced : 0;
-        const last15MinGoalRate = t.stats.goals > 0 ? t.stats.goalsLast15Min / t.stats.goals : 0;
+        // 各项比率（避免除零，并限制最大值为1）
+        const shotOnTargetRate = t.stats.totalShots > 0 ? Math.min(t.stats.shotsOnTarget / t.stats.totalShots, 1) : 0;
+        const conversionRate = t.stats.shotsOnTarget > 0 ? Math.min(t.stats.goals / t.stats.shotsOnTarget, 1) : 0;
+        const saveRate = t.stats.shotsFaced > 0 ? Math.min(t.stats.saves / t.stats.shotsFaced, 1) : 0;
+        const last15MinGoalRate = t.stats.goals > 0 ? Math.min(t.stats.goalsLast15Min / t.stats.goals, 1) : 0;
 
         if (!teamRawMap.has(t.name)) {
           teamRawMap.set(t.name, {
@@ -3895,10 +3895,10 @@ export const db = {
         let singleStats: TeamMatchInfo['stats'] = null;
         if (teamStats && m.homeScore !== null && m.awayScore !== null) {
           const myGoals = teamStats.goals;
-          const shotOnTargetRate = teamStats.totalShots > 0 ? teamStats.shotsOnTarget / teamStats.totalShots : 0;
-          const conversionRate = teamStats.shotsOnTarget > 0 ? teamStats.goals / teamStats.shotsOnTarget : 0;
-          const saveRate = teamStats.shotsFaced > 0 ? teamStats.saves / teamStats.shotsFaced : 0;
-          const last15MinGoalRate = myGoals > 0 ? teamStats.goalsLast15Min / myGoals : 0;
+          const shotOnTargetRate = teamStats.totalShots > 0 ? Math.min(teamStats.shotsOnTarget / teamStats.totalShots, 1) : 0;
+          const conversionRate = teamStats.shotsOnTarget > 0 ? Math.min(teamStats.goals / teamStats.shotsOnTarget, 1) : 0;
+          const saveRate = teamStats.shotsFaced > 0 ? Math.min(teamStats.saves / teamStats.shotsFaced, 1) : 0;
+          const last15MinGoalRate = myGoals > 0 ? Math.min(teamStats.goalsLast15Min / myGoals, 1) : 0;
           singleStats = {
             possessionRate: teamStats.possessionPct * 100,
             shotOnTargetRate: shotOnTargetRate * 100,
